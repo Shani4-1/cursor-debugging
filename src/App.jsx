@@ -5,7 +5,7 @@ function Product({ item, addToCart }) {
   return (
     <div>
       <h3>{item.name}</h3>
-      <p>Price: ${item.price.toFixed(2)}</p>
+      <p>Price: ${item.price ? item.price.toFixed(2) : '0.00'}</p>
       <button onClick={() => addToCart(item)}>Add to Cart</button>
     </div>
   );
@@ -109,13 +109,18 @@ function App() {
   };
 
   const addProduct = (product) => {
-    setProducts([...products, product]);
+    const newProduct = {
+      id: products.length + 1,
+      name: product.name,
+      price: parseFloat(product.price)
+    };
+    setProducts([...products, newProduct]);
   };
 
   useEffect(() => {
     console.log("Cart updated");
     // Error 6: Incorrect dependency array
-  }, [cart, undefinedVariable]);
+  }, [cart]);
 
   return (
     <div className="container">
@@ -126,7 +131,7 @@ function App() {
       <div className="product-list">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
-            <Product item={product.name} addToCart={addToCart} />
+            <Product item={product} addToCart={addToCart} />
           </div>
         ))}
       </div>
@@ -135,9 +140,6 @@ function App() {
     </div>
   );
 
-  console.log(undefinedVariable);
 }
-
-const [state, setState] = useState();
 
 export default App;
