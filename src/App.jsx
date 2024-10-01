@@ -115,7 +115,7 @@ function App() {
   useEffect(() => {
     console.log("Cart updated");
     // Error 6: Incorrect dependency array
-  }, [cart, undefinedVariable]);
+  }, [cart]);
 
   return (
     <div className="container">
@@ -126,7 +126,7 @@ function App() {
       <div className="product-list">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
-            <Product item={product.name} addToCart={addToCart} />
+            <Product item={product} addToCart={addToCart} />
           </div>
         ))}
       </div>
@@ -135,7 +135,7 @@ function App() {
     </div>
   );
 
-  console.log(undefinedVariable);
+
 }
 
 const [state, setState] = useState();
